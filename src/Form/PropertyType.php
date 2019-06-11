@@ -21,7 +21,7 @@ class PropertyType extends AbstractType
             ->add('floor')
             ->add('price')
             ->add('heat', ChoiceType::class,[
-                'choices' => Property::HEAT
+                'choices' => $this->getChoices()
             ])
             ->add('city')
             ->add('address')
@@ -38,5 +38,15 @@ class PropertyType extends AbstractType
             'data_class' => Property::class,
             'translation_domain' => 'forms'
         ]);
+    }
+
+    private function getChoices()
+    {
+        $choices =Property::HEAT;
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v]= $k;
+        }
+        return $output;
     }
 }
