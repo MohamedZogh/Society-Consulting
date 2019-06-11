@@ -14,12 +14,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Property
 {
     const HEAT = [
-        'Electrique'=> 0,
-        'Gaz'=> 1,
-        'Bois'=> 2,
-        'Solaire'=> 3,
-        'Pétrole'=> 4,
-        'Aucun'=> 5
+        0=> 'Electrique',
+        1=> 'Gaz',
+        2=> 'Bois',
+        3=> 'Solaire',
+        4=> 'Pétrole',
+        5=> 'Aucun'
     ];
 
     /**

@@ -7,6 +7,8 @@ use App\Entity\Property;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class PropertyController extends AbstractController
 {
@@ -24,7 +26,7 @@ class PropertyController extends AbstractController
      * @return response
      */
 
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         // Solution 2 pour autowiring :
         // $repository = $this->getDoctrine()->getRepository(Property::class);
@@ -47,10 +49,16 @@ class PropertyController extends AbstractController
         // $em->persist($property);
         // $em->flush();
 
-        return $this->render('property/index.html.twig',
-                ['current_menu' => 'properties'] 
-        
+        $properties = $paginator->paginate(
+            $this->repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1), 12
         );
+
+        return $this->render('property/index.html.twig', [ 
+            'current_menu' => 'properties',
+            'properties' => $properties
+               
+        ]);
 
     } 
 
